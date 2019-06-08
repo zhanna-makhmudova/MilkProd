@@ -1,0 +1,588 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище bdmilkprodModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id_client" />
+          </Key>
+          <Property Name="id_client" Type="int" Nullable="false" />
+          <Property Name="surname_client" Type="varchar" MaxLength="50" />
+          <Property Name="name_client" Type="varchar" MaxLength="50" />
+          <Property Name="patronymic_client" Type="varchar" MaxLength="50" />
+          <Property Name="telephone_client" Type="varchar" MaxLength="11" />
+        </EntityType>
+        <EntityType Name="Farm">
+          <Key>
+            <PropertyRef Name="id_farm" />
+          </Key>
+          <Property Name="id_farm" Type="int" Nullable="false" />
+          <Property Name="name_farm" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="FarmProd">
+          <Key>
+            <PropertyRef Name="id_farmprod" />
+          </Key>
+          <Property Name="id_farmprod" Type="int" Nullable="false" />
+          <Property Name="id_product" Type="int" />
+          <Property Name="id_farm" Type="int" />
+          <Property Name="amount_farmprod" Type="int" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="id_product" />
+          </Key>
+          <Property Name="id_product" Type="int" Nullable="false" />
+          <Property Name="name_product" Type="varchar" MaxLength="50" />
+          <Property Name="id_type" Type="int" />
+          <Property Name="cost_product" Type="float" />
+        </EntityType>
+        <EntityType Name="ProductTrade">
+          <Key>
+            <PropertyRef Name="id_productTrade" />
+          </Key>
+          <Property Name="id_productTrade" Type="int" Nullable="false" />
+          <Property Name="id_product" Type="int" />
+          <Property Name="id_trade" Type="int" />
+          <Property Name="amount_productTrade" Type="int" />
+        </EntityType>
+        <EntityType Name="Trade">
+          <Key>
+            <PropertyRef Name="id_trade" />
+          </Key>
+          <Property Name="id_trade" Type="int" Nullable="false" />
+          <Property Name="id_worker" Type="int" />
+          <Property Name="date_trade" Type="date" />
+          <Property Name="cost_trade" Type="float" />
+          <Property Name="id_client" Type="int" />
+        </EntityType>
+        <EntityType Name="TypeProduct">
+          <Key>
+            <PropertyRef Name="id_type" />
+          </Key>
+          <Property Name="id_type" Type="int" Nullable="false" />
+          <Property Name="name_type" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TypeWorker">
+          <Key>
+            <PropertyRef Name="id_typeworker" />
+          </Key>
+          <Property Name="id_typeworker" Type="int" Nullable="false" />
+          <Property Name="name_typeworker" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Worker">
+          <Key>
+            <PropertyRef Name="id_worker" />
+          </Key>
+          <Property Name="id_worker" Type="int" Nullable="false" />
+          <Property Name="surname_worker" Type="varchar" MaxLength="50" />
+          <Property Name="name_worker" Type="varchar" MaxLength="50" />
+          <Property Name="patronymic_worker" Type="varchar" MaxLength="50" />
+          <Property Name="id_type" Type="int" />
+          <Property Name="telephone_worker" Type="varchar" MaxLength="11" />
+          <Property Name="login_worker" Type="varchar" MaxLength="50" />
+          <Property Name="password_worker" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__FarmProd__id_far__267ABA7A">
+          <End Role="Farm" Type="Self.Farm" Multiplicity="0..1" />
+          <End Role="FarmProd" Type="Self.FarmProd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Farm">
+              <PropertyRef Name="id_farm" />
+            </Principal>
+            <Dependent Role="FarmProd">
+              <PropertyRef Name="id_farm" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FarmProd__id_pro__25869641">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="FarmProd" Type="Self.FarmProd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="id_product" />
+            </Principal>
+            <Dependent Role="FarmProd">
+              <PropertyRef Name="id_product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Product__id_type__1273C1CD">
+          <End Role="TypeProduct" Type="Self.TypeProduct" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeProduct">
+              <PropertyRef Name="id_type" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="id_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProductTr__id_pr__21B6055D">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="ProductTrade" Type="Self.ProductTrade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="id_product" />
+            </Principal>
+            <Dependent Role="ProductTrade">
+              <PropertyRef Name="id_product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProductTr__id_tr__22AA2996">
+          <End Role="Trade" Type="Self.Trade" Multiplicity="0..1" />
+          <End Role="ProductTrade" Type="Self.ProductTrade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trade">
+              <PropertyRef Name="id_trade" />
+            </Principal>
+            <Dependent Role="ProductTrade">
+              <PropertyRef Name="id_trade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Trade__id_client__1ED998B2">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Trade" Type="Self.Trade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id_client" />
+            </Principal>
+            <Dependent Role="Trade">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Trade__id_worker__1DE57479">
+          <End Role="Worker" Type="Self.Worker" Multiplicity="0..1" />
+          <End Role="Trade" Type="Self.Trade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Worker">
+              <PropertyRef Name="id_worker" />
+            </Principal>
+            <Dependent Role="Trade">
+              <PropertyRef Name="id_worker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Worker__id_type__1920BF5C">
+          <End Role="TypeWorker" Type="Self.TypeWorker" Multiplicity="0..1" />
+          <End Role="Worker" Type="Self.Worker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeWorker">
+              <PropertyRef Name="id_typeworker" />
+            </Principal>
+            <Dependent Role="Worker">
+              <PropertyRef Name="id_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище bdmilkprodModelContainer">
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Farm" EntityType="Self.Farm" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FarmProd" EntityType="Self.FarmProd" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductTrade" EntityType="Self.ProductTrade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Trade" EntityType="Self.Trade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeProduct" EntityType="Self.TypeProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeWorker" EntityType="Self.TypeWorker" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Worker" EntityType="Self.Worker" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__FarmProd__id_far__267ABA7A" Association="Self.FK__FarmProd__id_far__267ABA7A">
+            <End Role="Farm" EntitySet="Farm" />
+            <End Role="FarmProd" EntitySet="FarmProd" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FarmProd__id_pro__25869641" Association="Self.FK__FarmProd__id_pro__25869641">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="FarmProd" EntitySet="FarmProd" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Product__id_type__1273C1CD" Association="Self.FK__Product__id_type__1273C1CD">
+            <End Role="TypeProduct" EntitySet="TypeProduct" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductTr__id_pr__21B6055D" Association="Self.FK__ProductTr__id_pr__21B6055D">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductTrade" EntitySet="ProductTrade" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductTr__id_tr__22AA2996" Association="Self.FK__ProductTr__id_tr__22AA2996">
+            <End Role="Trade" EntitySet="Trade" />
+            <End Role="ProductTrade" EntitySet="ProductTrade" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Trade__id_client__1ED998B2" Association="Self.FK__Trade__id_client__1ED998B2">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Trade" EntitySet="Trade" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Trade__id_worker__1DE57479" Association="Self.FK__Trade__id_worker__1DE57479">
+            <End Role="Worker" EntitySet="Worker" />
+            <End Role="Trade" EntitySet="Trade" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Worker__id_type__1920BF5C" Association="Self.FK__Worker__id_type__1920BF5C">
+            <End Role="TypeWorker" EntitySet="TypeWorker" />
+            <End Role="Worker" EntitySet="Worker" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="bdmilkprodModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id_client" />
+          </Key>
+          <Property Name="id_client" Type="Int32" Nullable="false" />
+          <Property Name="surname_client" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="name_client" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="patronymic_client" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="telephone_client" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Trade" Relationship="Self.FK__Trade__id_client__1ED998B2" FromRole="Client" ToRole="Trade" />
+        </EntityType>
+        <EntityType Name="Farm">
+          <Key>
+            <PropertyRef Name="id_farm" />
+          </Key>
+          <Property Name="id_farm" Type="Int32" Nullable="false" />
+          <Property Name="name_farm" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="FarmProd" Relationship="Self.FK__FarmProd__id_far__267ABA7A" FromRole="Farm" ToRole="FarmProd" />
+        </EntityType>
+        <EntityType Name="FarmProd">
+          <Key>
+            <PropertyRef Name="id_farmprod" />
+          </Key>
+          <Property Name="id_farmprod" Type="Int32" Nullable="false" />
+          <Property Name="id_product" Type="Int32" />
+          <Property Name="id_farm" Type="Int32" />
+          <Property Name="amount_farmprod" Type="Int32" />
+          <NavigationProperty Name="Farm" Relationship="Self.FK__FarmProd__id_far__267ABA7A" FromRole="FarmProd" ToRole="Farm" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__FarmProd__id_pro__25869641" FromRole="FarmProd" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="id_product" />
+          </Key>
+          <Property Name="id_product" Type="Int32" Nullable="false" />
+          <Property Name="name_product" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="id_type" Type="Int32" />
+          <Property Name="cost_product" Type="Double" />
+          <NavigationProperty Name="FarmProd" Relationship="Self.FK__FarmProd__id_pro__25869641" FromRole="Product" ToRole="FarmProd" />
+          <NavigationProperty Name="TypeProduct" Relationship="Self.FK__Product__id_type__1273C1CD" FromRole="Product" ToRole="TypeProduct" />
+          <NavigationProperty Name="ProductTrade" Relationship="Self.FK__ProductTr__id_pr__21B6055D" FromRole="Product" ToRole="ProductTrade" />
+        </EntityType>
+        <EntityType Name="ProductTrade">
+          <Key>
+            <PropertyRef Name="id_productTrade" />
+          </Key>
+          <Property Name="id_productTrade" Type="Int32" Nullable="false" />
+          <Property Name="id_product" Type="Int32" />
+          <Property Name="id_trade" Type="Int32" />
+          <Property Name="amount_productTrade" Type="Int32" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__ProductTr__id_pr__21B6055D" FromRole="ProductTrade" ToRole="Product" />
+          <NavigationProperty Name="Trade" Relationship="Self.FK__ProductTr__id_tr__22AA2996" FromRole="ProductTrade" ToRole="Trade" />
+        </EntityType>
+        <EntityType Name="Trade">
+          <Key>
+            <PropertyRef Name="id_trade" />
+          </Key>
+          <Property Name="id_trade" Type="Int32" Nullable="false" />
+          <Property Name="id_worker" Type="Int32" />
+          <Property Name="date_trade" Type="DateTime" Precision="0" />
+          <Property Name="cost_trade" Type="Double" />
+          <Property Name="id_client" Type="Int32" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__Trade__id_client__1ED998B2" FromRole="Trade" ToRole="Client" />
+          <NavigationProperty Name="ProductTrade" Relationship="Self.FK__ProductTr__id_tr__22AA2996" FromRole="Trade" ToRole="ProductTrade" />
+          <NavigationProperty Name="Worker" Relationship="Self.FK__Trade__id_worker__1DE57479" FromRole="Trade" ToRole="Worker" />
+        </EntityType>
+        <EntityType Name="TypeProduct">
+          <Key>
+            <PropertyRef Name="id_type" />
+          </Key>
+          <Property Name="id_type" Type="Int32" Nullable="false" />
+          <Property Name="name_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__Product__id_type__1273C1CD" FromRole="TypeProduct" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="TypeWorker">
+          <Key>
+            <PropertyRef Name="id_typeworker" />
+          </Key>
+          <Property Name="id_typeworker" Type="Int32" Nullable="false" />
+          <Property Name="name_typeworker" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Worker" Relationship="Self.FK__Worker__id_type__1920BF5C" FromRole="TypeWorker" ToRole="Worker" />
+        </EntityType>
+        <EntityType Name="Worker">
+          <Key>
+            <PropertyRef Name="id_worker" />
+          </Key>
+          <Property Name="id_worker" Type="Int32" Nullable="false" />
+          <Property Name="surname_worker" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="name_worker" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="patronymic_worker" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="id_type" Type="Int32" />
+          <Property Name="telephone_worker" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="login_worker" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password_worker" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Trade" Relationship="Self.FK__Trade__id_worker__1DE57479" FromRole="Worker" ToRole="Trade" />
+          <NavigationProperty Name="TypeWorker" Relationship="Self.FK__Worker__id_type__1920BF5C" FromRole="Worker" ToRole="TypeWorker" />
+        </EntityType>
+        <Association Name="FK__Trade__id_client__1ED998B2">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Trade" Type="Self.Trade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id_client" />
+            </Principal>
+            <Dependent Role="Trade">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FarmProd__id_far__267ABA7A">
+          <End Role="Farm" Type="Self.Farm" Multiplicity="0..1" />
+          <End Role="FarmProd" Type="Self.FarmProd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Farm">
+              <PropertyRef Name="id_farm" />
+            </Principal>
+            <Dependent Role="FarmProd">
+              <PropertyRef Name="id_farm" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FarmProd__id_pro__25869641">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="FarmProd" Type="Self.FarmProd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="id_product" />
+            </Principal>
+            <Dependent Role="FarmProd">
+              <PropertyRef Name="id_product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Product__id_type__1273C1CD">
+          <End Role="TypeProduct" Type="Self.TypeProduct" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeProduct">
+              <PropertyRef Name="id_type" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="id_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProductTr__id_pr__21B6055D">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="ProductTrade" Type="Self.ProductTrade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="id_product" />
+            </Principal>
+            <Dependent Role="ProductTrade">
+              <PropertyRef Name="id_product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProductTr__id_tr__22AA2996">
+          <End Role="Trade" Type="Self.Trade" Multiplicity="0..1" />
+          <End Role="ProductTrade" Type="Self.ProductTrade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trade">
+              <PropertyRef Name="id_trade" />
+            </Principal>
+            <Dependent Role="ProductTrade">
+              <PropertyRef Name="id_trade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Trade__id_worker__1DE57479">
+          <End Role="Worker" Type="Self.Worker" Multiplicity="0..1" />
+          <End Role="Trade" Type="Self.Trade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Worker">
+              <PropertyRef Name="id_worker" />
+            </Principal>
+            <Dependent Role="Trade">
+              <PropertyRef Name="id_worker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Worker__id_type__1920BF5C">
+          <End Role="TypeWorker" Type="Self.TypeWorker" Multiplicity="0..1" />
+          <End Role="Worker" Type="Self.Worker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeWorker">
+              <PropertyRef Name="id_typeworker" />
+            </Principal>
+            <Dependent Role="Worker">
+              <PropertyRef Name="id_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bdmilkprodEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Client" EntityType="Self.Client" />
+          <EntitySet Name="Farm" EntityType="Self.Farm" />
+          <EntitySet Name="FarmProd" EntityType="Self.FarmProd" />
+          <EntitySet Name="Product" EntityType="Self.Product" />
+          <EntitySet Name="ProductTrade" EntityType="Self.ProductTrade" />
+          <EntitySet Name="Trade" EntityType="Self.Trade" />
+          <EntitySet Name="TypeProduct" EntityType="Self.TypeProduct" />
+          <EntitySet Name="TypeWorker" EntityType="Self.TypeWorker" />
+          <EntitySet Name="Worker" EntityType="Self.Worker" />
+          <AssociationSet Name="FK__Trade__id_client__1ED998B2" Association="Self.FK__Trade__id_client__1ED998B2">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Trade" EntitySet="Trade" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FarmProd__id_far__267ABA7A" Association="Self.FK__FarmProd__id_far__267ABA7A">
+            <End Role="Farm" EntitySet="Farm" />
+            <End Role="FarmProd" EntitySet="FarmProd" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FarmProd__id_pro__25869641" Association="Self.FK__FarmProd__id_pro__25869641">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="FarmProd" EntitySet="FarmProd" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Product__id_type__1273C1CD" Association="Self.FK__Product__id_type__1273C1CD">
+            <End Role="TypeProduct" EntitySet="TypeProduct" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductTr__id_pr__21B6055D" Association="Self.FK__ProductTr__id_pr__21B6055D">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductTrade" EntitySet="ProductTrade" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductTr__id_tr__22AA2996" Association="Self.FK__ProductTr__id_tr__22AA2996">
+            <End Role="Trade" EntitySet="Trade" />
+            <End Role="ProductTrade" EntitySet="ProductTrade" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Trade__id_worker__1DE57479" Association="Self.FK__Trade__id_worker__1DE57479">
+            <End Role="Worker" EntitySet="Worker" />
+            <End Role="Trade" EntitySet="Trade" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Worker__id_type__1920BF5C" Association="Self.FK__Worker__id_type__1920BF5C">
+            <End Role="TypeWorker" EntitySet="TypeWorker" />
+            <End Role="Worker" EntitySet="Worker" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище bdmilkprodModelContainer" CdmEntityContainer="bdmilkprodEntities">
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="bdmilkprodModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+                <ScalarProperty Name="surname_client" ColumnName="surname_client" />
+                <ScalarProperty Name="name_client" ColumnName="name_client" />
+                <ScalarProperty Name="patronymic_client" ColumnName="patronymic_client" />
+                <ScalarProperty Name="telephone_client" ColumnName="telephone_client" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Farm">
+            <EntityTypeMapping TypeName="bdmilkprodModel.Farm">
+              <MappingFragment StoreEntitySet="Farm">
+                <ScalarProperty Name="id_farm" ColumnName="id_farm" />
+                <ScalarProperty Name="name_farm" ColumnName="name_farm" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FarmProd">
+            <EntityTypeMapping TypeName="bdmilkprodModel.FarmProd">
+              <MappingFragment StoreEntitySet="FarmProd">
+                <ScalarProperty Name="id_farmprod" ColumnName="id_farmprod" />
+                <ScalarProperty Name="id_product" ColumnName="id_product" />
+                <ScalarProperty Name="id_farm" ColumnName="id_farm" />
+                <ScalarProperty Name="amount_farmprod" ColumnName="amount_farmprod" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="bdmilkprodModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="id_product" ColumnName="id_product" />
+                <ScalarProperty Name="name_product" ColumnName="name_product" />
+                <ScalarProperty Name="id_type" ColumnName="id_type" />
+                <ScalarProperty Name="cost_product" ColumnName="cost_product" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductTrade">
+            <EntityTypeMapping TypeName="bdmilkprodModel.ProductTrade">
+              <MappingFragment StoreEntitySet="ProductTrade">
+                <ScalarProperty Name="id_productTrade" ColumnName="id_productTrade" />
+                <ScalarProperty Name="id_product" ColumnName="id_product" />
+                <ScalarProperty Name="id_trade" ColumnName="id_trade" />
+                <ScalarProperty Name="amount_productTrade" ColumnName="amount_productTrade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trade">
+            <EntityTypeMapping TypeName="bdmilkprodModel.Trade">
+              <MappingFragment StoreEntitySet="Trade">
+                <ScalarProperty Name="id_trade" ColumnName="id_trade" />
+                <ScalarProperty Name="id_worker" ColumnName="id_worker" />
+                <ScalarProperty Name="date_trade" ColumnName="date_trade" />
+                <ScalarProperty Name="cost_trade" ColumnName="cost_trade" />
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeProduct">
+            <EntityTypeMapping TypeName="bdmilkprodModel.TypeProduct">
+              <MappingFragment StoreEntitySet="TypeProduct">
+                <ScalarProperty Name="id_type" ColumnName="id_type" />
+                <ScalarProperty Name="name_type" ColumnName="name_type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeWorker">
+            <EntityTypeMapping TypeName="bdmilkprodModel.TypeWorker">
+              <MappingFragment StoreEntitySet="TypeWorker">
+                <ScalarProperty Name="id_typeworker" ColumnName="id_typeworker" />
+                <ScalarProperty Name="name_typeworker" ColumnName="name_typeworker" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Worker">
+            <EntityTypeMapping TypeName="bdmilkprodModel.Worker">
+              <MappingFragment StoreEntitySet="Worker">
+                <ScalarProperty Name="id_worker" ColumnName="id_worker" />
+                <ScalarProperty Name="surname_worker" ColumnName="surname_worker" />
+                <ScalarProperty Name="name_worker" ColumnName="name_worker" />
+                <ScalarProperty Name="patronymic_worker" ColumnName="patronymic_worker" />
+                <ScalarProperty Name="id_type" ColumnName="id_type" />
+                <ScalarProperty Name="telephone_worker" ColumnName="telephone_worker" />
+                <ScalarProperty Name="login_worker" ColumnName="login_worker" />
+                <ScalarProperty Name="password_worker" ColumnName="password_worker" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

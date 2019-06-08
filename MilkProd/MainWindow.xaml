@@ -1,0 +1,18 @@
+﻿<Window x:Class="MilkProd.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MilkProd"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Button Content="Принять" HorizontalAlignment="Left" Margin="86,319,0,0" VerticalAlignment="Top" Width="170" Height="50" Click="Button_Click_1" Background="#FF198BEA" FontSize="24" Foreground="White"/>
+        <Button Content="Отменить" HorizontalAlignment="Left" Margin="556,319,0,0" VerticalAlignment="Top" Width="170" Height="50" Click="Button_Click_2" Background="#FF198BEA" Foreground="White" FontSize="24"/>
+        <TextBox x:Name="lgnTB" HorizontalAlignment="Left" Height="50" Margin="322,113,0,0" Text="admin" VerticalAlignment="Top" Width="300" BorderThickness="0,0,0,1" FontSize="36"/>
+        <PasswordBox x:Name="pswTB" HorizontalAlignment="Left" Height="50" Margin="322,203,0,0" Password="admin" VerticalAlignment="Top" Width="300" BorderThickness="0,0,0,1" FontSize="36"/>
+        <Label Content="Логин" HorizontalAlignment="Left" Margin="182,108,0,0" VerticalAlignment="Top" Height="55" Width="116" FontSize="36"/>
+        <Label Content="Пароль" HorizontalAlignment="Left" Margin="166,198,0,0" VerticalAlignment="Top" Height="54" Width="132" FontSize="36"/>
+
+    </Grid>
+</Window>
