@@ -41,6 +41,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -64,8 +67,41 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="addClient.xaml.cs">
+      <DependentUpon>addClient.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="addFarm.xaml.cs">
+      <DependentUpon>addFarm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="addProduct.xaml.cs">
+      <DependentUpon>addProduct.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="addTrade.xaml.cs">
+      <DependentUpon>addTrade.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="addType.xaml.cs">
+      <DependentUpon>addType.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="addWorker.xaml.cs">
+      <DependentUpon>addWorker.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AdminClients.xaml.cs">
       <DependentUpon>AdminClients.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AdminFarm.xaml.cs">
+      <DependentUpon>AdminFarm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AdminProduct.xaml.cs">
+      <DependentUpon>AdminProduct.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AdminTrade.xaml.cs">
+      <DependentUpon>AdminTrade.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AdminType.xaml.cs">
+      <DependentUpon>AdminType.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AdminWorker.xaml.cs">
+      <DependentUpon>AdminWorker.xaml</DependentUpon>
     </Compile>
     <Compile Include="Client.cs">
       <DependentUpon>Entity.tt</DependentUpon>
@@ -102,7 +138,51 @@
     <Compile Include="Worker.cs">
       <DependentUpon>Entity.tt</DependentUpon>
     </Compile>
+    <Page Include="addClient.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="addFarm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="addProduct.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="addTrade.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="addType.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="addWorker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AdminClients.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AdminFarm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AdminProduct.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AdminTrade.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AdminType.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AdminWorker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -159,6 +239,20 @@
       <DependentUpon>Entity.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\AdminClients.datasource" />
+    <None Include="Properties\DataSources\AdminMainMenu.datasource" />
+    <None Include="Properties\DataSources\App.datasource" />
+    <None Include="Properties\DataSources\bdmilkprodEntities.datasource" />
+    <None Include="Properties\DataSources\Client.datasource" />
+    <None Include="Properties\DataSources\Farm.datasource" />
+    <None Include="Properties\DataSources\FarmProd.datasource" />
+    <None Include="Properties\DataSources\MainWindow.datasource" />
+    <None Include="Properties\DataSources\Product.datasource" />
+    <None Include="Properties\DataSources\ProductTrade.datasource" />
+    <None Include="Properties\DataSources\Trade.datasource" />
+    <None Include="Properties\DataSources\TypeProduct.datasource" />
+    <None Include="Properties\DataSources\TypeWorker.datasource" />
+    <None Include="Properties\DataSources\Worker.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -181,6 +275,35 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel1">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>9</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

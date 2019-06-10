@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button Content="Принять" HorizontalAlignment="Left" Margin="86,319,0,0" VerticalAlignment="Top" Width="170" Height="50" Click="Button_Click_1" Background="#FF198BEA" FontSize="24" Foreground="White"/>
+        <Button Content="Войти" HorizontalAlignment="Left" Margin="86,319,0,0" VerticalAlignment="Top" Width="170" Height="50" Click="Button_Click_1" Background="#FF198BEA" FontSize="24" Foreground="White"/>
         <Button Content="Отменить" HorizontalAlignment="Left" Margin="556,319,0,0" VerticalAlignment="Top" Width="170" Height="50" Click="Button_Click_2" Background="#FF198BEA" Foreground="White" FontSize="24"/>
         <TextBox x:Name="lgnTB" HorizontalAlignment="Left" Height="50" Margin="322,113,0,0" Text="admin" VerticalAlignment="Top" Width="300" BorderThickness="0,0,0,1" FontSize="36"/>
         <PasswordBox x:Name="pswTB" HorizontalAlignment="Left" Height="50" Margin="322,203,0,0" Password="admin" VerticalAlignment="Top" Width="300" BorderThickness="0,0,0,1" FontSize="36"/>

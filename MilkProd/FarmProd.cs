@@ -12,12 +12,69 @@ namespace MilkProd
     using System;
     using System.Collections.Generic;
     
-    public partial class FarmProd
+    public partial class FarmProd : System.ComponentModel.INotifyPropertyChanged 
     {
-        public int id_farmprod { get; set; }
-        public Nullable<int> id_product { get; set; }
-        public Nullable<int> id_farm { get; set; }
-        public Nullable<int> amount_farmprod { get; set; }
+     public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+            public void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string name = "")
+            {
+                PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(name));
+            }
+        
+    			private int _id_farmprod;
+    			public int id_farmprod 
+    			{ 
+    				get => _id_farmprod; 
+    				set
+    				{ 
+    					if(_id_farmprod!=value)
+    					{ 
+    						_id_farmprod=value; 
+    						OnPropertyChanged("id_farmprod"); 
+    					}
+    				}
+    			}
+        
+    			private Nullable<int> _id_product;
+    			public Nullable<int> id_product 
+    			{ 
+    				get => _id_product; 
+    				set
+    				{ 
+    					if(_id_product!=value)
+    					{ 
+    						_id_product=value; 
+    						OnPropertyChanged("id_product"); 
+    					}
+    				}
+    			}
+        
+    			private Nullable<int> _id_farm;
+    			public Nullable<int> id_farm 
+    			{ 
+    				get => _id_farm; 
+    				set
+    				{ 
+    					if(_id_farm!=value)
+    					{ 
+    						_id_farm=value; 
+    						OnPropertyChanged("id_farm"); 
+    					}
+    				}
+    			}
+        
+    			private Nullable<int> _amount_farmprod;
+    			public Nullable<int> amount_farmprod 
+    			{ 
+    				get => _amount_farmprod; 
+    				set
+    				{ 
+    					if(_amount_farmprod!=value)
+    					{ 
+    						_amount_farmprod=value; 
+    						OnPropertyChanged("amount_farmprod"); 
+    					}
+    				}
+    			}
     
         public virtual Farm Farm { get; set; }
         public virtual Product Product { get; set; }

@@ -12,21 +12,91 @@ namespace MilkProd
     using System;
     using System.Collections.Generic;
     
-    public partial class Client
+    public partial class Client : System.ComponentModel.INotifyPropertyChanged 
     {
+     public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+            public void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string name = "")
+            {
+                PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(name));
+            }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Client()
         {
-            this.Trade = new HashSet<Trade>();
+            this.Trade = new System.Collections.ObjectModel.ObservableCollection<Trade>();
         }
     
-        public int id_client { get; set; }
-        public string surname_client { get; set; }
-        public string name_client { get; set; }
-        public string patronymic_client { get; set; }
-        public string telephone_client { get; set; }
+        
+    			private int _id_client;
+    			public int id_client 
+    			{ 
+    				get => _id_client; 
+    				set
+    				{ 
+    					if(_id_client!=value)
+    					{ 
+    						_id_client=value; 
+    						OnPropertyChanged("id_client"); 
+    					}
+    				}
+    			}
+        
+    			private string _surname_client;
+    			public string surname_client 
+    			{ 
+    				get => _surname_client; 
+    				set
+    				{ 
+    					if(_surname_client!=value)
+    					{ 
+    						_surname_client=value; 
+    						OnPropertyChanged("surname_client"); 
+    					}
+    				}
+    			}
+        
+    			private string _name_client;
+    			public string name_client 
+    			{ 
+    				get => _name_client; 
+    				set
+    				{ 
+    					if(_name_client!=value)
+    					{ 
+    						_name_client=value; 
+    						OnPropertyChanged("name_client"); 
+    					}
+    				}
+    			}
+        
+    			private string _patronymic_client;
+    			public string patronymic_client 
+    			{ 
+    				get => _patronymic_client; 
+    				set
+    				{ 
+    					if(_patronymic_client!=value)
+    					{ 
+    						_patronymic_client=value; 
+    						OnPropertyChanged("patronymic_client"); 
+    					}
+    				}
+    			}
+        
+    			private string _telephone_client;
+    			public string telephone_client 
+    			{ 
+    				get => _telephone_client; 
+    				set
+    				{ 
+    					if(_telephone_client!=value)
+    					{ 
+    						_telephone_client=value; 
+    						OnPropertyChanged("telephone_client"); 
+    					}
+    				}
+    			}
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Trade> Trade { get; set; }
+        public virtual System.Collections.ObjectModel.ObservableCollection<Trade> Trade { get; set; }
     }
 }

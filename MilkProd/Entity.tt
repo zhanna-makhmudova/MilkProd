@@ -26,6 +26,11 @@ foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection)
 <#=codeStringGenerator.UsingDirectives(inHeader: false)#>
 <#=codeStringGenerator.EntityClassOpening(entity)#>
 {
+ public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string name = "")
+        {
+            PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(name));
+        }
 <#
     var propertiesWithDefaultValues = typeMapper.GetPropertiesWithDefaultValues(entity);
     var collectionNavigationProperties = typeMapper.GetCollectionNavigationProperties(entity);
@@ -48,7 +53,7 @@ foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection)
         foreach (var navigationProperty in collectionNavigationProperties)
         {
 #>
-        this.<#=code.Escape(navigationProperty)#> = new HashSet<<#=typeMapper.GetTypeName(navigationProperty.ToEndMember.GetEntityType())#>>();
+        this.<#=code.Escape(navigationProperty)#> = new System.Collections.ObjectModel.ObservableCollection<<#=typeMapper.GetTypeName(navigationProperty.ToEndMember.GetEntityType())#>>();
 <#
         }
 
@@ -285,7 +290,20 @@ public class CodeStringGenerator
     {
         return string.Format(
             CultureInfo.InvariantCulture,
-            "{0} {1} {2} {{ {3}get; {4}set; }}",
+            @"
+			private {1} _{2};
+			{0} {1} {2} 
+			{{ 
+				{3}get => _{2}; 
+				{4}set
+				{{ 
+					if(_{2}!=value)
+					{{ 
+						_{2}=value; 
+						OnPropertyChanged(""{2}""); 
+					}}
+				}}
+			}}",
             Accessibility.ForProperty(edmProperty),
             _typeMapper.GetTypeName(edmProperty.TypeUsage),
             _code.Escape(edmProperty),
@@ -300,7 +318,7 @@ public class CodeStringGenerator
             CultureInfo.InvariantCulture,
             "{0} {1} {2} {{ {3}get; {4}set; }}",
             AccessibilityAndVirtual(Accessibility.ForNavigationProperty(navProp)),
-            navProp.ToEndMember.RelationshipMultiplicity == RelationshipMultiplicity.Many ? ("ICollection<" + endType + ">") : endType,
+            navProp.ToEndMember.RelationshipMultiplicity == RelationshipMultiplicity.Many ? ("System.Collections.ObjectModel.ObservableCollection<" + endType + ">") : endType,
             _code.Escape(navProp),
             _code.SpaceAfter(Accessibility.ForGetter(navProp)),
             _code.SpaceAfter(Accessibility.ForSetter(navProp)));
@@ -315,7 +333,7 @@ public class CodeStringGenerator
     {
         return string.Format(
             CultureInfo.InvariantCulture,
-            "{0} {1}partial class {2}{3}",
+            "{0} {1}partial class {2} : System.ComponentModel.INotifyPropertyChanged {3}",
             Accessibility.ForType(entity),
             _code.SpaceAfter(_code.AbstractOption(entity)),
             _code.Escape(entity),
@@ -488,7 +506,7 @@ public class TypeMapper
         var collectionType = edmType as CollectionType;
         if (collectionType != null)
         {
-            return String.Format(CultureInfo.InvariantCulture, "ICollection<{0}>", GetTypeName(collectionType.TypeUsage, modelNamespace));
+            return String.Format(CultureInfo.InvariantCulture, "System.Collections.ObjectModel.ObservableCollection<{0}>", GetTypeName(collectionType.TypeUsage, modelNamespace));
         }
 
         var typeName = _code.Escape(edmType.MetadataProperties

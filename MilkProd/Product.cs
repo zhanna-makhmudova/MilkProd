@@ -12,25 +12,93 @@ namespace MilkProd
     using System;
     using System.Collections.Generic;
     
-    public partial class Product
+    public partial class Product : System.ComponentModel.INotifyPropertyChanged 
     {
+     public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+            public void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string name = "")
+            {
+                PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(name));
+            }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
-            this.FarmProd = new HashSet<FarmProd>();
-            this.ProductTrade = new HashSet<ProductTrade>();
+            this.FarmProd = new System.Collections.ObjectModel.ObservableCollection<FarmProd>();
+            this.ProductTrade = new System.Collections.ObjectModel.ObservableCollection<ProductTrade>();
         }
     
-        public int id_product { get; set; }
-        public string name_product { get; set; }
-        public Nullable<int> id_type { get; set; }
-        public Nullable<double> cost_product { get; set; }
-        public string firstChar{ get => name_product[0].ToString() }
-
+        //При редактировании таблиц этот код улетит, всегда его будешь вставлять
+            //public string FarmsName
+            //{
+            //    get
+            //    {
+            //        string res = "";
+            //        foreach(var f in FarmProd)
+            //        {
+            //            res += f.
+            //        }
+            //    }
+            //}
+        
+    			private int _id_product;
+    			public int id_product 
+    			{ 
+    				get => _id_product; 
+    				set
+    				{ 
+    					if(_id_product!=value)
+    					{ 
+    						_id_product=value; 
+    						OnPropertyChanged("id_product"); 
+    					}
+    				}
+    			}
+        
+    			private string _name_product;
+    			public string name_product 
+    			{ 
+    				get => _name_product; 
+    				set
+    				{ 
+    					if(_name_product!=value)
+    					{ 
+    						_name_product=value; 
+    						OnPropertyChanged("name_product"); 
+    					}
+    				}
+    			}
+        
+    			private Nullable<int> _id_type;
+    			public Nullable<int> id_type 
+    			{ 
+    				get => _id_type; 
+    				set
+    				{ 
+    					if(_id_type!=value)
+    					{ 
+    						_id_type=value; 
+    						OnPropertyChanged("id_type"); 
+    					}
+    				}
+    			}
+        
+    			private Nullable<double> _cost_product;
+    			public Nullable<double> cost_product 
+    			{ 
+    				get => _cost_product; 
+    				set
+    				{ 
+    					if(_cost_product!=value)
+    					{ 
+    						_cost_product=value; 
+    						OnPropertyChanged("cost_product"); 
+    					}
+    				}
+    			}
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FarmProd> FarmProd { get; set; }
+        public virtual System.Collections.ObjectModel.ObservableCollection<FarmProd> FarmProd { get; set; }
         public virtual TypeProduct TypeProduct { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductTrade> ProductTrade { get; set; }
+        public virtual System.Collections.ObjectModel.ObservableCollection<ProductTrade> ProductTrade { get; set; }
     }
 }

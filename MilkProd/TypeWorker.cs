@@ -12,18 +12,49 @@ namespace MilkProd
     using System;
     using System.Collections.Generic;
     
-    public partial class TypeWorker
+    public partial class TypeWorker : System.ComponentModel.INotifyPropertyChanged 
     {
+     public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+            public void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string name = "")
+            {
+                PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(name));
+            }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TypeWorker()
         {
-            this.Worker = new HashSet<Worker>();
+            this.Worker = new System.Collections.ObjectModel.ObservableCollection<Worker>();
         }
     
-        public int id_typeworker { get; set; }
-        public string name_typeworker { get; set; }
+        
+    			private int _id_typeworker;
+    			public int id_typeworker 
+    			{ 
+    				get => _id_typeworker; 
+    				set
+    				{ 
+    					if(_id_typeworker!=value)
+    					{ 
+    						_id_typeworker=value; 
+    						OnPropertyChanged("id_typeworker"); 
+    					}
+    				}
+    			}
+        
+    			private string _name_typeworker;
+    			public string name_typeworker 
+    			{ 
+    				get => _name_typeworker; 
+    				set
+    				{ 
+    					if(_name_typeworker!=value)
+    					{ 
+    						_name_typeworker=value; 
+    						OnPropertyChanged("name_typeworker"); 
+    					}
+    				}
+    			}
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Worker> Worker { get; set; }
+        public virtual System.Collections.ObjectModel.ObservableCollection<Worker> Worker { get; set; }
     }
 }

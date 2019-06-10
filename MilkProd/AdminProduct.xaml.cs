@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace MilkProd
 {
     /// <summary>
-    /// Логика взаимодействия для AdminClients.xaml
+    /// Логика взаимодействия для AdminProduct.xaml
     /// </summary>
-    public partial class AdminClients : Window
+    public partial class AdminProduct : Window
     {
-        public AdminClients()
+        public AdminProduct()
         {
             InitializeComponent();
         }
@@ -27,23 +27,18 @@ namespace MilkProd
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
-            System.Windows.Data.CollectionViewSource clientViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("clientViewSource")));
+            System.Windows.Data.CollectionViewSource productViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("productViewSource")));
             // Загрузите данные, установив свойство CollectionViewSource.Source:
-            MainGrid.DataContext = MainWindow.bd.Client.ToList();
+            productViewSource.Source = MainWindow.bd.Product.ToList();
             if (MainWindow.role != 1)
             {
                 delBtn.Visibility = Visibility.Collapsed;
             }
         }
-        void Refresh()
-        {
-            MainGrid.DataContext = null;
-            MainGrid.DataContext = MainWindow.bd.Client.ToList();
-        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            addClient add = new addClient();
+            addProduct add = new addProduct();
             add.Closed += (asd, dsa) => { Show(); Refresh(); };
             Hide();
             add.Show();
@@ -51,34 +46,37 @@ namespace MilkProd
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            if (clientDataGrid.SelectedItem != null)
+            if (productDataGrid.SelectedItem != null)
             {
-                addClient add = new addClient(clientDataGrid.SelectedItem as Client);
+                addProduct add = new addProduct(productDataGrid.SelectedItem as Product);
                 add.Closed += (asd, dsa) => { Show(); Refresh(); };
                 Hide();
                 add.Show();
             }
             else
-                MessageBox.Show("Выберите клиента для внесения изменений");
-           
+                MessageBox.Show("Выберите продукт для внесения изменений");
         }
-        
+        void Refresh()
+        {
+            productDataGrid.DataContext = null;
+            productDataGrid.DataContext = MainWindow.bd.Product.ToList();
+        }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            if (clientDataGrid.SelectedItem == null)
+            if (productDataGrid.SelectedItem == null)
             {
                 MessageBox.Show("Не выбран элемент для удаления!");
                 return;
             }
-            var Subject = clientDataGrid.SelectedItem as Client;
+            var Subject = productDataGrid.SelectedItem as Product;
             if (MessageBox.Show("Вы уверены что хотите удалить данный элемент?", "Внимание!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 try
                 {
-                    MainWindow.bd.Client.Remove(Subject);
+                    MainWindow.bd.Product.Remove(Subject);
                     MainWindow.bd.SaveChanges();
-                    
+
                 }
                 catch
                 {
@@ -87,6 +85,5 @@ namespace MilkProd
             }
             Refresh();
         }
-       
     }
 }

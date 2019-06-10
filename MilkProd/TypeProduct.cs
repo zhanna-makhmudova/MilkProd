@@ -12,18 +12,49 @@ namespace MilkProd
     using System;
     using System.Collections.Generic;
     
-    public partial class TypeProduct
+    public partial class TypeProduct : System.ComponentModel.INotifyPropertyChanged 
     {
+     public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+            public void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string name = "")
+            {
+                PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(name));
+            }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TypeProduct()
         {
-            this.Product = new HashSet<Product>();
+            this.Product = new System.Collections.ObjectModel.ObservableCollection<Product>();
         }
     
-        public int id_type { get; set; }
-        public string name_type { get; set; }
+        
+    			private int _id_type;
+    			public int id_type 
+    			{ 
+    				get => _id_type; 
+    				set
+    				{ 
+    					if(_id_type!=value)
+    					{ 
+    						_id_type=value; 
+    						OnPropertyChanged("id_type"); 
+    					}
+    				}
+    			}
+        
+    			private string _name_type;
+    			public string name_type 
+    			{ 
+    				get => _name_type; 
+    				set
+    				{ 
+    					if(_name_type!=value)
+    					{ 
+    						_name_type=value; 
+    						OnPropertyChanged("name_type"); 
+    					}
+    				}
+    			}
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Product { get; set; }
+        public virtual System.Collections.ObjectModel.ObservableCollection<Product> Product { get; set; }
     }
 }

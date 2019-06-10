@@ -4,12 +4,12 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище bdmilkprodModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище bdmilkprodModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="id_client" />
           </Key>
-          <Property Name="id_client" Type="int" Nullable="false" />
+          <Property Name="id_client" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="surname_client" Type="varchar" MaxLength="50" />
           <Property Name="name_client" Type="varchar" MaxLength="50" />
           <Property Name="patronymic_client" Type="varchar" MaxLength="50" />
@@ -19,14 +19,14 @@
           <Key>
             <PropertyRef Name="id_farm" />
           </Key>
-          <Property Name="id_farm" Type="int" Nullable="false" />
+          <Property Name="id_farm" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name_farm" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="FarmProd">
           <Key>
             <PropertyRef Name="id_farmprod" />
           </Key>
-          <Property Name="id_farmprod" Type="int" Nullable="false" />
+          <Property Name="id_farmprod" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_product" Type="int" />
           <Property Name="id_farm" Type="int" />
           <Property Name="amount_farmprod" Type="int" />
@@ -35,7 +35,7 @@
           <Key>
             <PropertyRef Name="id_product" />
           </Key>
-          <Property Name="id_product" Type="int" Nullable="false" />
+          <Property Name="id_product" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name_product" Type="varchar" MaxLength="50" />
           <Property Name="id_type" Type="int" />
           <Property Name="cost_product" Type="float" />
@@ -44,7 +44,7 @@
           <Key>
             <PropertyRef Name="id_productTrade" />
           </Key>
-          <Property Name="id_productTrade" Type="int" Nullable="false" />
+          <Property Name="id_productTrade" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_product" Type="int" />
           <Property Name="id_trade" Type="int" />
           <Property Name="amount_productTrade" Type="int" />
@@ -53,7 +53,7 @@
           <Key>
             <PropertyRef Name="id_trade" />
           </Key>
-          <Property Name="id_trade" Type="int" Nullable="false" />
+          <Property Name="id_trade" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_worker" Type="int" />
           <Property Name="date_trade" Type="date" />
           <Property Name="cost_trade" Type="float" />
@@ -63,21 +63,21 @@
           <Key>
             <PropertyRef Name="id_type" />
           </Key>
-          <Property Name="id_type" Type="int" Nullable="false" />
+          <Property Name="id_type" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name_type" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="TypeWorker">
           <Key>
             <PropertyRef Name="id_typeworker" />
           </Key>
-          <Property Name="id_typeworker" Type="int" Nullable="false" />
+          <Property Name="id_typeworker" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name_typeworker" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Worker">
           <Key>
             <PropertyRef Name="id_worker" />
           </Key>
-          <Property Name="id_worker" Type="int" Nullable="false" />
+          <Property Name="id_worker" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="surname_worker" Type="varchar" MaxLength="50" />
           <Property Name="name_worker" Type="varchar" MaxLength="50" />
           <Property Name="patronymic_worker" Type="varchar" MaxLength="50" />
@@ -225,8 +225,7 @@
             <End Role="Worker" EntitySet="Worker" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="bdmilkprodModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">

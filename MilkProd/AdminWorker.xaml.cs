@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace MilkProd
 {
     /// <summary>
-    /// Логика взаимодействия для AdminClients.xaml
+    /// Логика взаимодействия для AdminWorker.xaml
     /// </summary>
-    public partial class AdminClients : Window
+    public partial class AdminWorker : Window
     {
-        public AdminClients()
+        public AdminWorker()
         {
             InitializeComponent();
         }
@@ -27,58 +27,62 @@ namespace MilkProd
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
-            System.Windows.Data.CollectionViewSource clientViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("clientViewSource")));
+            System.Windows.Data.CollectionViewSource workerViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("workerViewSource")));
             // Загрузите данные, установив свойство CollectionViewSource.Source:
-            MainGrid.DataContext = MainWindow.bd.Client.ToList();
+            workerViewSource.Source = MainWindow.bd.Worker.ToList();
+            // var role = MainWindow.bd.TypeWorker.FirstOrDefault
             if (MainWindow.role != 1)
             {
+                edBtn.Visibility = Visibility.Collapsed;
+                addBtn.Visibility = Visibility.Collapsed;
                 delBtn.Visibility = Visibility.Collapsed;
+                workerDataGrid.Columns[4].Visibility = Visibility.Collapsed;
+                workerDataGrid.Columns[5].Visibility = Visibility.Collapsed;
             }
-        }
-        void Refresh()
-        {
-            MainGrid.DataContext = null;
-            MainGrid.DataContext = MainWindow.bd.Client.ToList();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            addClient add = new addClient();
+            addWorker add = new addWorker();
             add.Closed += (asd, dsa) => { Show(); Refresh(); };
             Hide();
             add.Show();
         }
+        
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            if (clientDataGrid.SelectedItem != null)
+            if (workerDataGrid.SelectedItem != null)
             {
-                addClient add = new addClient(clientDataGrid.SelectedItem as Client);
+                addWorker add = new addWorker(workerDataGrid.SelectedItem as Worker);
                 add.Closed += (asd, dsa) => { Show(); Refresh(); };
                 Hide();
                 add.Show();
             }
             else
-                MessageBox.Show("Выберите клиента для внесения изменений");
-           
+                MessageBox.Show("Выберите сотрудника для внесения изменений");
         }
-        
+        void Refresh()
+        {
+            workerDataGrid.DataContext = null;
+            workerDataGrid.DataContext = MainWindow.bd.Worker.ToList();
+        }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            if (clientDataGrid.SelectedItem == null)
+            if (workerDataGrid.SelectedItem == null)
             {
                 MessageBox.Show("Не выбран элемент для удаления!");
                 return;
             }
-            var Subject = clientDataGrid.SelectedItem as Client;
+            var Subject = workerDataGrid.SelectedItem as Worker;
             if (MessageBox.Show("Вы уверены что хотите удалить данный элемент?", "Внимание!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 try
                 {
-                    MainWindow.bd.Client.Remove(Subject);
+                    MainWindow.bd.Worker.Remove(Subject);
                     MainWindow.bd.SaveChanges();
-                    
+
                 }
                 catch
                 {
@@ -87,6 +91,5 @@ namespace MilkProd
             }
             Refresh();
         }
-       
     }
 }

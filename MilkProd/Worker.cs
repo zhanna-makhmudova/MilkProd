@@ -12,25 +12,134 @@ namespace MilkProd
     using System;
     using System.Collections.Generic;
     
-    public partial class Worker
+    public partial class Worker : System.ComponentModel.INotifyPropertyChanged 
     {
+     public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+            public void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string name = "")
+            {
+                PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(name));
+            }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Worker()
         {
-            this.Trade = new HashSet<Trade>();
+            this.Trade = new System.Collections.ObjectModel.ObservableCollection<Trade>();
         }
     
-        public int id_worker { get; set; }
-        public string surname_worker { get; set; }
-        public string name_worker { get; set; }
-        public string patronymic_worker { get; set; }
-        public Nullable<int> id_type { get; set; }
-        public string telephone_worker { get; set; }
-        public string login_worker { get; set; }
-        public string password_worker { get; set; }
+        
+    			private int _id_worker;
+    			public int id_worker 
+    			{ 
+    				get => _id_worker; 
+    				set
+    				{ 
+    					if(_id_worker!=value)
+    					{ 
+    						_id_worker=value; 
+    						OnPropertyChanged("id_worker"); 
+    					}
+    				}
+    			}
+        
+    			private string _surname_worker;
+    			public string surname_worker 
+    			{ 
+    				get => _surname_worker; 
+    				set
+    				{ 
+    					if(_surname_worker!=value)
+    					{ 
+    						_surname_worker=value; 
+    						OnPropertyChanged("surname_worker"); 
+    					}
+    				}
+    			}
+        
+    			private string _name_worker;
+    			public string name_worker 
+    			{ 
+    				get => _name_worker; 
+    				set
+    				{ 
+    					if(_name_worker!=value)
+    					{ 
+    						_name_worker=value; 
+    						OnPropertyChanged("name_worker"); 
+    					}
+    				}
+    			}
+        
+    			private string _patronymic_worker;
+    			public string patronymic_worker 
+    			{ 
+    				get => _patronymic_worker; 
+    				set
+    				{ 
+    					if(_patronymic_worker!=value)
+    					{ 
+    						_patronymic_worker=value; 
+    						OnPropertyChanged("patronymic_worker"); 
+    					}
+    				}
+    			}
+        
+    			private Nullable<int> _id_type;
+    			public Nullable<int> id_type 
+    			{ 
+    				get => _id_type; 
+    				set
+    				{ 
+    					if(_id_type!=value)
+    					{ 
+    						_id_type=value; 
+    						OnPropertyChanged("id_type"); 
+    					}
+    				}
+    			}
+        
+    			private string _telephone_worker;
+    			public string telephone_worker 
+    			{ 
+    				get => _telephone_worker; 
+    				set
+    				{ 
+    					if(_telephone_worker!=value)
+    					{ 
+    						_telephone_worker=value; 
+    						OnPropertyChanged("telephone_worker"); 
+    					}
+    				}
+    			}
+        
+    			private string _login_worker;
+    			public string login_worker 
+    			{ 
+    				get => _login_worker; 
+    				set
+    				{ 
+    					if(_login_worker!=value)
+    					{ 
+    						_login_worker=value; 
+    						OnPropertyChanged("login_worker"); 
+    					}
+    				}
+    			}
+        
+    			private string _password_worker;
+    			public string password_worker 
+    			{ 
+    				get => _password_worker; 
+    				set
+    				{ 
+    					if(_password_worker!=value)
+    					{ 
+    						_password_worker=value; 
+    						OnPropertyChanged("password_worker"); 
+    					}
+    				}
+    			}
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Trade> Trade { get; set; }
+        public virtual System.Collections.ObjectModel.ObservableCollection<Trade> Trade { get; set; }
         public virtual TypeWorker TypeWorker { get; set; }
     }
 }

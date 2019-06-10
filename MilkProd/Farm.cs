@@ -12,18 +12,49 @@ namespace MilkProd
     using System;
     using System.Collections.Generic;
     
-    public partial class Farm
+    public partial class Farm : System.ComponentModel.INotifyPropertyChanged 
     {
+     public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+            public void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string name = "")
+            {
+                PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(name));
+            }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Farm()
         {
-            this.FarmProd = new HashSet<FarmProd>();
+            this.FarmProd = new System.Collections.ObjectModel.ObservableCollection<FarmProd>();
         }
     
-        public int id_farm { get; set; }
-        public string name_farm { get; set; }
+        
+    			private int _id_farm;
+    			public int id_farm 
+    			{ 
+    				get => _id_farm; 
+    				set
+    				{ 
+    					if(_id_farm!=value)
+    					{ 
+    						_id_farm=value; 
+    						OnPropertyChanged("id_farm"); 
+    					}
+    				}
+    			}
+        
+    			private string _name_farm;
+    			public string name_farm 
+    			{ 
+    				get => _name_farm; 
+    				set
+    				{ 
+    					if(_name_farm!=value)
+    					{ 
+    						_name_farm=value; 
+    						OnPropertyChanged("name_farm"); 
+    					}
+    				}
+    			}
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FarmProd> FarmProd { get; set; }
+        public virtual System.Collections.ObjectModel.ObservableCollection<FarmProd> FarmProd { get; set; }
     }
 }

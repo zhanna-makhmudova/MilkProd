@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace MilkProd
 {
     /// <summary>
-    /// Логика взаимодействия для AdminClients.xaml
+    /// Логика взаимодействия для AdminFarm.xaml
     /// </summary>
-    public partial class AdminClients : Window
+    public partial class AdminFarm : Window
     {
-        public AdminClients()
+        public AdminFarm()
         {
             InitializeComponent();
         }
@@ -27,58 +27,62 @@ namespace MilkProd
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
-            System.Windows.Data.CollectionViewSource clientViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("clientViewSource")));
+        }
+
+        private void Window_Loaded_1(object sender, RoutedEventArgs e)
+        {
+
+            System.Windows.Data.CollectionViewSource farmViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("farmViewSource")));
             // Загрузите данные, установив свойство CollectionViewSource.Source:
-            MainGrid.DataContext = MainWindow.bd.Client.ToList();
+            farmViewSource.Source = MainWindow.bd.Farm.ToList();
             if (MainWindow.role != 1)
             {
                 delBtn.Visibility = Visibility.Collapsed;
             }
         }
-        void Refresh()
-        {
-            MainGrid.DataContext = null;
-            MainGrid.DataContext = MainWindow.bd.Client.ToList();
-        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            addClient add = new addClient();
+            addFarm add = new addFarm();
             add.Closed += (asd, dsa) => { Show(); Refresh(); };
             Hide();
             add.Show();
         }
+        void Refresh()
+        {
+            farmDataGrid.DataContext = null;
+            farmDataGrid.DataContext = MainWindow.bd.Farm.ToList();
+        }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            if (clientDataGrid.SelectedItem != null)
+            if (farmDataGrid.SelectedItem != null)
             {
-                addClient add = new addClient(clientDataGrid.SelectedItem as Client);
+                addFarm add = new addFarm(farmDataGrid.SelectedItem as Farm);
                 add.Closed += (asd, dsa) => { Show(); Refresh(); };
                 Hide();
                 add.Show();
             }
             else
-                MessageBox.Show("Выберите клиента для внесения изменений");
-           
+                MessageBox.Show("Выберите ферму для внесения изменений");
         }
-        
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            if (clientDataGrid.SelectedItem == null)
+
+            if (farmDataGrid.SelectedItem == null)
             {
                 MessageBox.Show("Не выбран элемент для удаления!");
                 return;
             }
-            var Subject = clientDataGrid.SelectedItem as Client;
+            var Subject = farmDataGrid.SelectedItem as Farm;
             if (MessageBox.Show("Вы уверены что хотите удалить данный элемент?", "Внимание!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 try
                 {
-                    MainWindow.bd.Client.Remove(Subject);
+                    MainWindow.bd.Farm.Remove(Subject);
                     MainWindow.bd.SaveChanges();
-                    
+
                 }
                 catch
                 {
@@ -87,6 +91,5 @@ namespace MilkProd
             }
             Refresh();
         }
-       
     }
 }

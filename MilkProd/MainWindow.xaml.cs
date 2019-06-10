@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,18 +21,20 @@ namespace MilkProd
     /// </summary>
     public partial class MainWindow : Window
     {
-        bdmilkprodEntities bd = new bdmilkprodEntities();
+        public static bdmilkprodEntities bd = new bdmilkprodEntities();
         public MainWindow()
         {
             InitializeComponent();
         }
 
-       
+
+        public static int role;
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            role = 0;
+            
             if (string.IsNullOrWhiteSpace(lgnTB.Text) || string.IsNullOrWhiteSpace(pswTB.Password))
             {
-
                 MessageBox.Show("Введите все данные");
                 return;
             }
@@ -39,18 +42,26 @@ namespace MilkProd
             var AUser = bd.Worker.FirstOrDefault(x => x.login_worker == lgnTB.Text && x.password_worker == pswTB.Password);
             if (AUser != null)
             {
-                menu menu = new menu();
+                if (AUser.id_type == 1)
+                {
+                    role = 1;
+                }
+                
+
+                AdminMainMenu menu = new AdminMainMenu();
                 menu.Closed += (asd, dsa) => Show();
                 Hide();
                 menu.Show();
             }
             else
                 MessageBox.Show("Неверные данные");
+            
         }
+        
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-
+            Close();
         }
     }
 }

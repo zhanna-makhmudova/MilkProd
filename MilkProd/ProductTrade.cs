@@ -12,12 +12,69 @@ namespace MilkProd
     using System;
     using System.Collections.Generic;
     
-    public partial class ProductTrade
+    public partial class ProductTrade : System.ComponentModel.INotifyPropertyChanged 
     {
-        public int id_productTrade { get; set; }
-        public Nullable<int> id_product { get; set; }
-        public Nullable<int> id_trade { get; set; }
-        public Nullable<int> amount_productTrade { get; set; }
+     public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+            public void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string name = "")
+            {
+                PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(name));
+            }
+        
+    			private int _id_productTrade;
+    			public int id_productTrade 
+    			{ 
+    				get => _id_productTrade; 
+    				set
+    				{ 
+    					if(_id_productTrade!=value)
+    					{ 
+    						_id_productTrade=value; 
+    						OnPropertyChanged("id_productTrade"); 
+    					}
+    				}
+    			}
+        
+    			private Nullable<int> _id_product;
+    			public Nullable<int> id_product 
+    			{ 
+    				get => _id_product; 
+    				set
+    				{ 
+    					if(_id_product!=value)
+    					{ 
+    						_id_product=value; 
+    						OnPropertyChanged("id_product"); 
+    					}
+    				}
+    			}
+        
+    			private Nullable<int> _id_trade;
+    			public Nullable<int> id_trade 
+    			{ 
+    				get => _id_trade; 
+    				set
+    				{ 
+    					if(_id_trade!=value)
+    					{ 
+    						_id_trade=value; 
+    						OnPropertyChanged("id_trade"); 
+    					}
+    				}
+    			}
+        
+    			private Nullable<int> _amount_productTrade;
+    			public Nullable<int> amount_productTrade 
+    			{ 
+    				get => _amount_productTrade; 
+    				set
+    				{ 
+    					if(_amount_productTrade!=value)
+    					{ 
+    						_amount_productTrade=value; 
+    						OnPropertyChanged("amount_productTrade"); 
+    					}
+    				}
+    			}
     
         public virtual Product Product { get; set; }
         public virtual Trade Trade { get; set; }

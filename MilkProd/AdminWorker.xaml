@@ -1,0 +1,29 @@
+﻿<Window x:Class="MilkProd.AdminWorker"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MilkProd"
+        mc:Ignorable="d"
+        Title="Сотрудники" Height="450" Width="800" Loaded="Window_Loaded">
+    <Window.Resources>
+        <CollectionViewSource x:Key="workerViewSource" d:DesignSource="{d:DesignInstance {x:Type local:Worker}, CreateList=True}"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource workerViewSource}">
+        <DataGrid x:Name="workerDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="0,0,0,66" RowDetailsVisibilityMode="VisibleWhenSelected" Background="#FFF0F0F0" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#FFA69F9F">
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="True" x:Name="surname_workerColumn" Binding="{Binding surname_worker}" Header="Фамилия" Width="*"/>
+                <DataGridTextColumn IsReadOnly="True" x:Name="name_workerColumn" Binding="{Binding name_worker}" Header="Имя" Width="*"/>
+                <DataGridTextColumn IsReadOnly="True" x:Name="patronymic_workerColumn" Binding="{Binding patronymic_worker}" Header="Отчество" Width="*"/>
+                <DataGridTextColumn IsReadOnly="True" x:Name="id_typeColumn" Binding="{Binding TypeWorker.name_typeworker}" Header="Роль сотрудника" Width="*"/>
+                <DataGridTextColumn IsReadOnly="True" x:Name="login_workerColumn" Binding="{Binding login_worker}" Header="Логин" Width="*"/>
+                <DataGridTextColumn IsReadOnly="True" x:Name="password_workerColumn" Binding="{Binding password_worker}" Header="Пароль" Width="*"/>
+                <DataGridTextColumn IsReadOnly="True" x:Name="telephone_workerColumn" Binding="{Binding telephone_worker}" Header="Номер телефона" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name = "addBtn" Content="Добавить" HorizontalAlignment="Left" Margin="28,376,0,0" VerticalAlignment="Top" Width="76" Click="Button_Click"/>
+        <Button x:Name = "edBtn" Content="Изменить" HorizontalAlignment="Left" Margin="146,376,0,0" VerticalAlignment="Top" Width="76" Click="Button_Click_1"/>
+        <Button x:Name = "delBtn" Content="Удалить" HorizontalAlignment="Left" Margin="268,376,0,0" VerticalAlignment="Top" Width="74" RenderTransformOrigin="0.62,0.55" Click="Button_Click_2"/>
+
+    </Grid>
+</Window>

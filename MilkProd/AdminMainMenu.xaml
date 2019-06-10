@@ -1,21 +1,22 @@
-﻿<Window x:Class="MilkProd.menu"
+﻿<Window x:Class="MilkProd.AdminMainMenu"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MilkProd"
         mc:Ignorable="d"
-        Title="menu" Height="450" Width="800">
-    <Grid>
+        Title="Меню" Height="275.486" Width="652.909">
+    <Grid Margin="0,0,2,0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="211*"/>
-            <ColumnDefinition Width="185*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
-        <Button Content="Клиенты" HorizontalAlignment="Left" Margin="91,119,0,0" VerticalAlignment="Top" Width="140" Height="50" Click="Button_Click_1"/>
-        <Button Content="Заказы" HorizontalAlignment="Left" Margin="213,119,0,0" VerticalAlignment="Top" Width="140" Height="50" Grid.Column="1"/>
-        <Button Content="Товар" HorizontalAlignment="Left" Margin="212,240,0,0" VerticalAlignment="Top" Width="140" Click="Button_Click" Height="50"/>
-        <Button Content="Работники" HorizontalAlignment="Left" Margin="358,119,0,0" VerticalAlignment="Top" Width="140" Height="50" Grid.ColumnSpan="2"/>
-        <Button Content="Фермы" HorizontalAlignment="Left" Margin="110,240,0,0" VerticalAlignment="Top" Width="140" Click="Button_Click_1" Height="50" Grid.Column="1"/>
+        <Button Content="Клиенты" HorizontalAlignment="Left" Margin="52,51,0,0" VerticalAlignment="Top" Width="140" Height="50" Click="Button_Click_1" Background="#FF198BEA" FontSize="20" Foreground="White"/>
+        <Button Content="Заказы" HorizontalAlignment="Left" Margin="449,51,0,0" VerticalAlignment="Top" Width="140" Height="50" Click="Button_Click_3" Background="#FF198BEA" Foreground="White" FontSize="20"/>
+        <Button Content="Товар" HorizontalAlignment="Left" Margin="251,150,0,0" VerticalAlignment="Top" Width="140" Click="Button_Click" Height="50" Background="#FF198BEA" Foreground="White" FontSize="20"/>
+        <Button Content="Работники" HorizontalAlignment="Left" Margin="251,51,0,0" VerticalAlignment="Top" Width="140" Height="50" Click="Button_Click_2" Background="#FF198BEA" Foreground="White" FontSize="20"/>
+        <Button Content="Фермы" HorizontalAlignment="Left" Margin="449,150,0,0" VerticalAlignment="Top" Width="140" Click="Button_Click_5" Height="50" Background="#FF198BEA" Foreground="White" FontSize="20"/>
+        <Button Content="Типы товаров" HorizontalAlignment="Left" Margin="52,150,0,0" VerticalAlignment="Top" Width="140" Height="50" Click="Button_Click_4" Background="#FF198BEA" Foreground="White" FontSize="20"/>
 
     </Grid>
 </Window>

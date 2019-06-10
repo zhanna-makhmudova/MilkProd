@@ -11,15 +11,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace MilkProd
 {
     /// <summary>
-    /// Логика взаимодействия для AdminClients.xaml
+    /// Логика взаимодействия для AdminTrade.xaml
     /// </summary>
-    public partial class AdminClients : Window
+    public partial class AdminTrade : Window
     {
-        public AdminClients()
+        public AdminTrade()
         {
             InitializeComponent();
         }
@@ -27,23 +28,18 @@ namespace MilkProd
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
-            System.Windows.Data.CollectionViewSource clientViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("clientViewSource")));
+            System.Windows.Data.CollectionViewSource tradeViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("tradeViewSource")));
             // Загрузите данные, установив свойство CollectionViewSource.Source:
-            MainGrid.DataContext = MainWindow.bd.Client.ToList();
+            tradeViewSource.Source = MainWindow.bd.Trade.ToList();
             if (MainWindow.role != 1)
             {
                 delBtn.Visibility = Visibility.Collapsed;
             }
         }
-        void Refresh()
-        {
-            MainGrid.DataContext = null;
-            MainGrid.DataContext = MainWindow.bd.Client.ToList();
-        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            addClient add = new addClient();
+            addTrade add = new addTrade();
             add.Closed += (asd, dsa) => { Show(); Refresh(); };
             Hide();
             add.Show();
@@ -51,34 +47,37 @@ namespace MilkProd
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            if (clientDataGrid.SelectedItem != null)
+            if (tradeDataGrid.SelectedItem != null)
             {
-                addClient add = new addClient(clientDataGrid.SelectedItem as Client);
+                addTrade add = new addTrade(tradeDataGrid.SelectedItem as Trade);
                 add.Closed += (asd, dsa) => { Show(); Refresh(); };
                 Hide();
                 add.Show();
             }
             else
-                MessageBox.Show("Выберите клиента для внесения изменений");
-           
+                MessageBox.Show("Выберите заказ для внесения изменений");
         }
-        
+        void Refresh()
+        {
+            tradeDataGrid.DataContext = null;
+            tradeDataGrid.DataContext = MainWindow.bd.Trade.ToList();
+        }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            if (clientDataGrid.SelectedItem == null)
+            if (tradeDataGrid.SelectedItem == null)
             {
                 MessageBox.Show("Не выбран элемент для удаления!");
                 return;
             }
-            var Subject = clientDataGrid.SelectedItem as Client;
+            var Subject = tradeDataGrid.SelectedItem as Trade;
             if (MessageBox.Show("Вы уверены что хотите удалить данный элемент?", "Внимание!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 try
                 {
-                    MainWindow.bd.Client.Remove(Subject);
+                    MainWindow.bd.Trade.Remove(Subject);
                     MainWindow.bd.SaveChanges();
-                    
+
                 }
                 catch
                 {
@@ -87,6 +86,10 @@ namespace MilkProd
             }
             Refresh();
         }
-       
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }
